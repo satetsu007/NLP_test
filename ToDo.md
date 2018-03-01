@@ -26,7 +26,8 @@
 - Word2VecとDoc2Vecでの単語ベクトルの学習(重み)の比較
 - gensimを使用しないWord2Vecの作成(tensorflow使用)
 
-参考URL: http://www.madopro.net/entry/word2vec_with_tensorflow
+参考URL: http://www.madopro.net/entry/word2vec_with_tensorflow,
+http://tensorflow.classcat.com/2016/03/12/tensorflow-cc-word2vec/
 
 ***
 
