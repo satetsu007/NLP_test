@@ -1,5 +1,5 @@
 # coding: utf-8
-from gensim.models.word2vec import Word2Vec
+from gensim.models.word2vec import Word2Vec, word2vec
 from gensim.models.doc2vec import Doc2vec, TaggedDocument
 import logging
 import os
