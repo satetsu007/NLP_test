@@ -18,6 +18,8 @@
 
 上記のパターンはgensim.models.word2vec参照([公式ドキュメント](https://radimrehurek.com/gensim/models/word2vec.html))
 
+    seed (int) – Seed for the random number generator. Initial vectors for each word are seeded with a hash of the concatenation of word + str(seed). Note that for a fully deterministically-reproducible run, you must also limit the model to a single worker thread (workers=1), to eliminate ordering jitter from OS thread scheduling. (In Python 3, reproducibility between interpreter launches also requires use of the PYTHONHASHSEED environment variable to control hash randomization).
+
 ***
 
 ## やること

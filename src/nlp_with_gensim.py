@@ -35,7 +35,9 @@ def w2v():
     model.save("../model/%s" % model_name)
 
 def d2v():
-    
+    """
+    write code.
+    """
 
 
 if __name__=="__main__":
