@@ -21,7 +21,7 @@ def main():
         d2v()
 
 def w2v():
-    corpus = "data.txt"
+    corpus_file = "data.txt"
     model_name = "data0.model"
     iter_count = 1000
 
@@ -30,7 +30,7 @@ def w2v():
     logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
     print("prepare data.")
-    sentences = word2vec.LineSentence(corpus)
+    sentences = word2vec.LineSentence(corpus_file)
     print("train model.")
     # workers=1にしなければseed固定は意味がない(ドキュメントより)
     model = word2vec.Word2Vec(sentences, size=200, min_count=1, window=15, seed=1, workers=8, iter=iter_count)
