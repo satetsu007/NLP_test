@@ -2,6 +2,9 @@ import os
 from gensim.models import word2vec
 
 #model = word2vec.Word2Vec.load("../model/data.model")
+
+os.chdir("src")
+
 model1 = word2vec.Word2Vec.load("../model/data_light0.model")
 model2 = word2vec.Word2Vec.load("../model/data_light1.model")
 model3 = word2vec.Word2Vec.load("../model/data_light2.model")

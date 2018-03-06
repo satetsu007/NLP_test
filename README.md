@@ -1,16 +1,21 @@
-# Word2Vec, Doc2Vecのベクトル化プログラム作成&シード値固定による再現性の確認作業
+# Word2Vec, Doc2Vec, fasttextのベクトル化プログラム作成&シード値固定による再現性の確認作業
 
+## 実装環境
 
-## やったこと
+python==3.5
+tensorflow==1.3.0
+gensim==3.4.0
+
+## やったこと
 
 - データを整理
 - テキストファイルとデータフレームを結合
 - テキストファイルを分かち書き
 - テキストファイルを結合(light, middle, allの3パターン)
 
-Word2Vec(gensim)を使ったベクトル化プログラム
+Word2Vec(gensim)を使ったベクトル化プログラム
 
-1. データセットに対してベクトル化のみ
+1. データセットに対してベクトル化のみ
 2. workersの固定(並列処理しない)
 3. シード値の固定(word2vec内)
 4. シード値の固定(numpy.random内)
@@ -26,7 +31,10 @@
 
 - Word2Vecで作成したプログラムをDoc2Vecでも同様に作成する
 - Word2VecとDoc2Vecでの単語ベクトルの学習(重み)の比較
-- gensimを使用しないWord2Vecの作成(tensorflow使用)
+- gensimを使用しないWord2Vecの作成(tensorflow使用)
+- fasttextを使用して入力ファイルのベクトル化
+- 過去に作成した機能の実装(word2vec ← doc2vec)
+
 
 参考URL: http://www.madopro.net/entry/word2vec_with_tensorflow,
 http://tensorflow.classcat.com/2016/03/12/tensorflow-cc-word2vec/
@@ -37,3 +45,21 @@ http://tensorflow.classcat.com/2016/03/12/tensorflow-cc-word2vec/
 
 gensim: https://radimrehurek.com/gensim/<br>
 tensorflow: https://www.tensorflow.org/<br>
+
+***
+
+## 各種説明
+
+### data
+***
+### ipynb
+***
+### src
+- nlp_with_gensim.py
+- nlp_with_tensorflow.py
+- nlp_with_fasttext.py
+- weight.py
+- module.py
+
+***
+### model

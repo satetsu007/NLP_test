@@ -1,7 +1,7 @@
 # coding: utf-8
 from gensim.models.word2vec import Word2Vec
 from gensim.models import word2vec
-from gensim.models.doc2vec import Doc2vec, TaggedDocument
+# from gensim.models.doc2vec import Doc2vec, TaggedDocument
 import logging
 import os
 import numpy as np
@@ -21,9 +21,9 @@ def main():
         d2v()
 
 def w2v():
-    corpus = "data_light.txt"
-    model_name = "data_light0.model"
-    iter_count = 100
+    corpus = "data.txt"
+    model_name = "data0.model"
+    iter_count = 1000
 
     os.chdir("data")
 
@@ -33,7 +33,7 @@ def w2v():
     sentences = word2vec.LineSentence(corpus)
     print("train model.")
     # workers=1にしなければseed固定は意味がない(ドキュメントより)
-    model = word2vec.Word2Vec(sentences, size=200, min_count=1, window=15, seed=1, workers=1, iter=iter_count)
+    model = word2vec.Word2Vec(sentences, size=200, min_count=1, window=15, seed=1, workers=8, iter=iter_count)
     print("save model.")
     model.save("../model/%s" % model_name)
 
