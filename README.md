@@ -5,6 +5,7 @@
 python==3.5
 tensorflow==1.3.0
 gensim==3.4.0
+fasttext==0.8.3
 
 ## やったこと
 
