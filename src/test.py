@@ -3,6 +3,7 @@ from gensim.models import word2vec, fasttext, doc2vec
 import os
 import sys
 import gensim
+import random
 
 def test(model_type, model_name):
     """
@@ -10,31 +11,39 @@ def test(model_type, model_name):
     """
 
     model = load_model(model_type, model_name)
+    show_wv(model)
 
 def load_model(model_type, model_name):
     """
     モデルの読み込み
     """
-    
+
     if(model_type=="word2vec"):
         model = word2vec.Word2Vec(model_name)
     elif(model_type=="doc2vec"):
         model = doc2vec.Doc2Vec(model_name)
     elif(model_type=="fasttext"):
         model = fasttext.FastText(model_name)
-    
+
     return model
 
-def show_wv():
+def show_wv(model):
     """
     単語ベクトルの表示
     """
+    word_keys = list(model.wv.vocab.keys())
+    print(model.wv.word_vec(word_keys[round(random.random() * len(word_keys))]))
 
-def show_dv():
+def show_dv(model_type, model):
     """
     文章ベクトルの表示
     文章ベクトルの計算法(要検討)
     """
+
+    if model_type == "doc2vec":
+        
+    else:
+        print("only doc2vec.")
 
 def calc_sim_wv():
     """
