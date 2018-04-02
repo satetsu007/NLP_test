@@ -2,11 +2,8 @@
 from train import train
 from test import test
 from gensim.models import word2vec, fasttext
-# from gensim.models.doc2vec import Doc2vec, TaggedDocument
 import logging
 import os
-import numpy as np
-import pandas as pd
 import sys
 
 def main():
@@ -18,25 +15,30 @@ def main():
     doc2vec: d2v
     fasttext: ft
 
-    実行例(fasttextを使用)
-    python nlp_with_gensim.py fasttext
-    """
-    os.chdir('/media/satetsu-gpu/Data/program/project/NLP/NLP_test')
+    NLP_testフォルダから実行すること
 
-    model_type = "fasttext"
+    実行例(fasttextを使用して学習)
+    python nlp_with_gensim.py train fasttext 1
+    """
 
     logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
     argvs = sys.argv  # コマンドライン引数を格納したリストの取得
     argc = len(argvs) # 引数の個数
+    
     # デバッグプリント
-    if(argc != 2):   # 引数が足りない場合は、その旨を表示
-        print('Usage: # python %s filename' % argvs[0])
+    if(argc != 4):   # 引数が足りない場合は、その旨を表示
+        print('Usage: # python %s train/test model_type model_no' % argvs[0])
         quit()         # プログラムの終了
+
+    model_type = argvs[2]
+    model_no = argvs[3]
+    model_name = "%s_%s.model" % (model_type, model_no)
+
     if(argvs[1]=="train"):
-        train(model_type)
+        train(model_type, model_name)
     elif(argvs[1]=="test"):
-        test(model_type)
+        test(model_type, model_name)
 
 if __name__=="__main__":
     main()

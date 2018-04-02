@@ -1,13 +1,11 @@
 # coding: utf-8
 # coding: utf-8
-from gensim.models import word2vec, fasttext
-# from gensim.models.doc2vec import Doc2vec, TaggedDocument
+from gensim.models import word2vec, fasttext, doc2vec
 import logging
 import os
-import numpy as np
-import pandas as pd
+import sys
 
-def train(model_type):
+def train(model_type, model_name):
     """
     gensimを使用して単語ベクトルを学習, モデルの保存を行う.
     各種学習アルゴリズムは下記関数にて呼び出す.
@@ -19,11 +17,9 @@ def train(model_type):
     実行例(fasttextを使用)
     python nlp_with_gensim.py fasttext
     """
-    os.chdir('/media/satetsu-gpu/Data/program/project/NLP/NLP_test')
 
     corpus_file = "data.txt"
-    model_name = "data0.model"
-    iter_count = 3
+    iter_count = 1
 
     logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
@@ -72,10 +68,45 @@ def ft(corpus_file, model_name, iter_count):
 
 def d2v(corpus_file, model_name, iter_count):
     """
-    write code.
+    doc2vec
     """
+    print("prepare data.")
+    os.chdir("data")
+    sentences = list(read_corpus(corpus_file))
 
+    print("train model.")
+    # workers=1にしなければseed固定は意味がない(ドキュメントより)
+    model = doc2vec.Doc2Vec(min_count=1, seed=1, workers=1, iter=iter_count)
+    model.build_vocab(sentences)
+    model.train(sentences, total_examples=model.corpus_count, epochs=model.iter)
+    
+    print("save model.")
+    os.chdir("..")
+    model.save("model/%s" % model_name)
 
-if __name__=="__main__":
-    model_type = "fasttext"
-    train(model_type)
+def read_corpus(fname, tokens_only=False):
+    with smart_open.smart_open(fname, encoding="utf-8") as f:
+        for i, line in enumerate(f):
+            if tokens_only:
+                yield gensim.utils.simple_preprocess(line)
+            else:
+                # For training data, add tags
+                yield gensim.models.doc2vec.TaggedDocument(gensim.utils.simple_preprocess(line), [i])
+
+def main():
+    argvs = sys.argv  # コマンドライン引数を格納したリストの取得
+    argc = len(argvs) # 引数の個数
+
+    # デバッグプリント
+    if(argc != 3):   # 引数が足りない場合は、その旨を表示
+        print('Usage: # python %s model_type model_no' % argvs[0])
+        quit()         # プログラムの終了
+
+    model_type = argvs[1]
+    model_no = argvs[2]
+    model_name = "%s_%s.model" % (model_type, model_no)
+
+    train(model_type, model_name)
+
+if __name__ == "__main__":
+    main()
