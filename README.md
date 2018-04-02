@@ -26,6 +26,15 @@ Word2Vec(gensim)を使ったベクトル化プログラム
 
     seed (int) – Seed for the random number generator. Initial vectors for each word are seeded with a hash of the concatenation of word + str(seed). Note that for a fully deterministically-reproducible run, you must also limit the model to a single worker thread (workers=1), to eliminate ordering jitter from OS thread scheduling. (In Python 3, reproducibility between interpreter launches also requires use of the PYTHONHASHSEED environment variable to control hash randomization).
 
+
+`os.environ["PYTHONHASHSEED"] = "1"`
+
+上記コードをプログラム内に記述することは無意味
+
+`export PYTHONHASHSEED="1"`
+
+上記コマンドを実行後、ファイルを実行することで学習が固定される
+
 ***
 
 ## やること
@@ -48,7 +57,7 @@ http://tensorflow.classcat.com/2016/03/12/tensorflow-cc-word2vec/
 
 - データの前準備
 - モデル定義
-- 重みの学習
+- 重みの学習
 - 重みの保存
 
 ### test

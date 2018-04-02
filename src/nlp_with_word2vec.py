@@ -1,9 +1,6 @@
-from gensim.models import fasttext
+from gensim.models import word2vec
 import os
 import logging
-import random as rn
-import numpy as np
-
 
 os.getcwd()
 os.chdir('/media/satetsu-gpu/Data/program/project/NLP/NLP_test')
@@ -18,8 +15,8 @@ text = f.read()
 sentences = [s.split(" ") for s in text.split("\n")]
 
 for i in range(1, 2):
-    model = fasttext.FastText(min_count=1, seed=1, workers=1, iter=iter_count)
+    model = word2vec.Word2Vec(min_count=1, seed=1, workers=1, iter=iter_count)
     model.build_vocab(sentences)
     model.train(sentences, total_examples=model.corpus_count, epochs=model.iter)
-    model.save("model/fasttext_gensim_iter=100_%s.model" % i)
+    model.save("model/word2vec_gensim_iter=1_%s.model" % i)
 
