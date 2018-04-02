@@ -4,6 +4,9 @@ from gensim.models import word2vec, fasttext, doc2vec
 import logging
 import os
 import sys
+import gensim
+import smart_open
+from nlp_with_doc2vec import read_corpus
 
 def train(model_type, model_name):
     """
@@ -34,6 +37,7 @@ def w2v(corpus_file, model_name, iter_count):
     """
     word2vec
     """
+
     print("prepare data.")
     os.chdir("data")
     sentences = word2vec.LineSentence(corpus_file)
@@ -50,6 +54,7 @@ def ft(corpus_file, model_name, iter_count):
     """
     fasttext
     """
+
     print("prepare data.")
     os.chdir("data")
     f = open("%s" % corpus_file,  "r")
@@ -70,6 +75,7 @@ def d2v(corpus_file, model_name, iter_count):
     """
     doc2vec
     """
+
     print("prepare data.")
     os.chdir("data")
     sentences = list(read_corpus(corpus_file))
@@ -83,15 +89,6 @@ def d2v(corpus_file, model_name, iter_count):
     print("save model.")
     os.chdir("..")
     model.save("model/%s" % model_name)
-
-def read_corpus(fname, tokens_only=False):
-    with smart_open.smart_open(fname, encoding="utf-8") as f:
-        for i, line in enumerate(f):
-            if tokens_only:
-                yield gensim.utils.simple_preprocess(line)
-            else:
-                # For training data, add tags
-                yield gensim.models.doc2vec.TaggedDocument(gensim.utils.simple_preprocess(line), [i])
 
 def main():
     argvs = sys.argv  # コマンドライン引数を格納したリストの取得
