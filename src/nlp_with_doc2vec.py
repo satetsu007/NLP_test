@@ -2,16 +2,8 @@ from gensim.models import doc2vec
 import os
 import logging
 import gensim
-import smart_open
+from module import read_corpus
 
-def read_corpus(fname, tokens_only=False):
-    with smart_open.smart_open(fname, encoding="utf-8") as f:
-        for i, line in enumerate(f):
-            if tokens_only:
-                yield gensim.utils.simple_preprocess(line)
-            else:
-                # For training data, add tags
-                yield gensim.models.doc2vec.TaggedDocument(gensim.utils.simple_preprocess(line), [i])
 
 def main():
     corpus_file = "data.txt"

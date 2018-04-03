@@ -19,6 +19,7 @@ def load_model(model_type, model_name):
     モデルの読み込み
     """
 
+    print("load model.")
     if(model_type=="word2vec"):
         model = word2vec.Word2Vec.load("model/%s" % model_name)
     elif(model_type=="doc2vec"):
@@ -28,7 +29,7 @@ def load_model(model_type, model_name):
 
     return model
 
-def show_wv(model, word=None, rand=True):
+def show_wv(model, word=None):
     """
     単語ベクトルの表示
     
@@ -40,12 +41,13 @@ def show_wv(model, word=None, rand=True):
     """
 
     print("show wordsvector.")
-    if rand:
+    if not word:
         word_keys = list(model.wv.vocab.keys())
         n = round(random.random() * len(word_keys))
         print(word_keys[n])
         print(model.wv.word_vec(word_keys[n]))
     else:
+        print(word)
         print(model.wv.word_vec(word))        
 
 def show_dv(model_type, model):
@@ -54,8 +56,9 @@ def show_dv(model_type, model):
     文章ベクトルの計算法(要検討)
     """
 
+    print("show docsvector.")
     if model_type == "doc2vec":
-        print("show docsvector.")
+        print("test")
     else:
         print("only doc2vec.")
 

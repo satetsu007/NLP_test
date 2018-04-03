@@ -1,21 +1,20 @@
 # coding: utf-8
-from gensim.models import word2vec, fasttext
-# from gensim.models.doc2vec import Doc2vec, TaggedDocument
-import logging
-import os
-import numpy as np
-import pandas as pd
+from module import compare
 import sys
 
 def main():
-    """
-    各種アルゴリズムでの学習結果を比較する.
-    ある単語ベクトルの重み, ある単語ベクトルに類似するベクトル上位を表示する.
-    """
-    os.chdir('/media/satetsu-gpu/Data/program/project/NLP/NLP_test')
-    
-    print("load model.")
-    os.chdir("model")
+    argvs = sys.argv  # コマンドライン引数を格納したリストの取得
+    argc = len(argvs) # 引数の個数
 
-    print("compare vector.")
-    
+    # デバッグプリント
+    if(argc != 3):   # 引数が足りない場合は、その旨を表示
+        print('Usage: # python %s model_no word' % argvs[0])
+        quit()         # プログラムの終了
+
+    model_no = argvs[1]
+    word = argvs[2]
+
+    compare(model_no, word=word)
+
+if __name__ == "__main__":
+    main()
