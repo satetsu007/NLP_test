@@ -12,6 +12,7 @@ def test(model_type, model_name):
 
     model = load_model(model_type, model_name)
     show_wv(model)
+    show_dv(model_type, model)
 
 def load_model(model_type, model_name):
     """
@@ -19,20 +20,33 @@ def load_model(model_type, model_name):
     """
 
     if(model_type=="word2vec"):
-        model = word2vec.Word2Vec(model_name)
+        model = word2vec.Word2Vec.load("model/%s" % model_name)
     elif(model_type=="doc2vec"):
-        model = doc2vec.Doc2Vec(model_name)
+        model = doc2vec.Doc2Vec.load("model/%s" % model_name)
     elif(model_type=="fasttext"):
-        model = fasttext.FastText(model_name)
+        model = fasttext.FastText.load("model/%s" % model_name)
 
     return model
 
-def show_wv(model):
+def show_wv(model, word=None, rand=True):
     """
     単語ベクトルの表示
+    
+    rand == True:
+        学習済みの重みからランダムに単語ベクトルを表示
+    rand == False:
+        学習済みの重みから指定した単語ベクトルを表示
+        ※ wordパラメータに単語を入力
     """
-    word_keys = list(model.wv.vocab.keys())
-    print(model.wv.word_vec(word_keys[round(random.random() * len(word_keys))]))
+
+    print("show wordsvector.")
+    if rand:
+        word_keys = list(model.wv.vocab.keys())
+        n = round(random.random() * len(word_keys))
+        print(word_keys[n])
+        print(model.wv.word_vec(word_keys[n]))
+    else:
+        print(model.wv.word_vec(word))        
 
 def show_dv(model_type, model):
     """
@@ -41,23 +55,29 @@ def show_dv(model_type, model):
     """
 
     if model_type == "doc2vec":
-        
+        print("show docsvector.")
     else:
         print("only doc2vec.")
 
-def calc_sim_wv():
+def calc_sim_wv(wv1, wv2):
     """
     単語ベクトル間の類似度計算と表示
+
+    wv1: 単語ベクトル
+    wv2: 単語ベクトル
     """
 
-def calc_sim_dv():
+def calc_sim_dv(dv1, dv2):
     """
     文章ベクトル間の類似度計算と表示
+
+    dv1: 文書ベクトル
+    dv2: 文書ベクトル
     """
 
 def wordclowd():
     """
-    文書間類似度を可視化
+    文書・単語ベクトル間の類似度を可視化
     """
 
 def main():

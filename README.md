@@ -1,6 +1,6 @@
 # Word2Vec, Doc2Vec, fasttextのベクトル化プログラム作成&シード値固定による再現性の確認作業
 
-## 実装環境
+## 実装環境(実行環境)
 
 python==3.5
 tensorflow==1.3.0
@@ -39,11 +39,9 @@ Word2Vec(gensim)を使ったベクトル化プログラム
 
 ## やること
 
-- Word2Vecで作成したプログラムをDoc2Vecでも同様に作成する
 - Word2VecとDoc2Vecでの単語ベクトルの学習(重み)の比較
 - gensimを使用しないWord2Vecの作成(tensorflow使用)
-- fasttextを使用して入力ファイルのベクトル化
-- 過去に作成した機能の実装(word2vec ← doc2vec)
+- 過去に作成した機能の実装(各種学習方法 ← doc2vec)
 
 
 参考URL: http://www.madopro.net/entry/word2vec_with_tensorflow,
@@ -51,27 +49,71 @@ http://tensorflow.classcat.com/2016/03/12/tensorflow-cc-word2vec/
 
 ***
 
-## 実行イメージ
+## 各種説明
 
-### train
+### data
 
-- データの前準備
-- モデル定義
-- 重みの学習
-- 重みの保存
+学習用データを保存
 
-### test
+***
 
-- モデルの読み込み
-- モデルの重みの読み込み
-- 各種機能の実行
+### ipynb
 
-### 各種機能
+jupyter notebookを保存
 
-- 単語ベクトルの重み表示
-- 単語ベクトル間の類似度計算
-- 文章のベクトル化 ➞ Doc2Vec(?) or 文章内に出現する単語ベクトルを演算
-- 文章ベクトル間の類似度計算
+***
+
+### src
+
+- nlp_with_gensim.py
+- nlp_with_tensorflow.py
+- nlp_with_fasttext.py
+- weight.py
+- module.py
+
+***
+
+### model
+
+学習済みの重みを保存
+
+***
+
+## ファイル説明
+
+### src/train.py
+
+#### train
+
+#### w2v
+
+#### d2v
+
+#### ft
+
+#### main
+
+***
+
+### src/test.py
+
+#### test
+
+#### load_model
+
+#### show_wv
+
+#### show_dv
+
+#### calc_sim_wv
+
+#### calc_sim_dv
+
+#### wordclowd
+
+***
+
+### src/nlp_with_gensim.py
 
 ***
 
@@ -81,19 +123,3 @@ gensim: https://radimrehurek.com/gensim/<br>
 tensorflow: https://www.tensorflow.org/<br>
 
 ***
-
-## 各種説明
-
-### data
-***
-### ipynb
-***
-### src
-- nlp_with_gensim.py
-- nlp_with_tensorflow.py
-- nlp_with_fasttext.py
-- weight.py
-- module.py
-
-***
-### model
