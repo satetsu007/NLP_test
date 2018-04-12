@@ -57,7 +57,7 @@ def ft(corpus_file, model_name, iter_count):
 
     print("prepare data.")
     os.chdir("data")
-    f = open("%s" % corpus_file,  "r")
+    f = open("%s" % corpus_file,  "r", encoding="utf-8")
     text = f.read()
     sentences = [s.split(" ") for s in text.split("\n")]
     
