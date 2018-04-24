@@ -30,19 +30,21 @@ def train(model_type, model_name):
         print("only doc2vec.")
 
 def set_data():
-    main_folders = os.listdir("main")
-    target_folders = os.listdir("target")
+    m = "main"
+    t = "target"
+    main_folders = os.listdir(m)
+    target_folders = os.listdir(t)
 
-    main_files = [os.listdir("main/%s" % m_f) for m_f in main_folders]
-    target_files = [os.listdir("target/%s" % t_f) for t_f in target_folders]
+    main_files = [os.listdir("%s/%s" % (m, m_f)) for m_f in main_folders]
+    target_files = [os.listdir("%s/%s" % (t, t_f)) for t_f in target_folders]
 
     for i, main_folder in enumerate(main_folders):
         for main_file in main_files[i]:
-            shutil.copy("main/%s/%s" % (main_folder, main_file), "tmp_file/m:%s_%s"  % (main_folder, main_file))
+            shutil.copy("%s/%s/%s" % (m, main_folder, main_file), "tmp_file/m:%s_%s"  % (main_folder, main_file))
 
     for i, target_folder in enumerate(target_folders):
         for target_file in target_files[i]:
-            shutil.copy("target/%s/%s" % (target_folder, target_file), "tmp_file/t:%s_%s"  % (target_folder, target_file))
+            shutil.copy("%s/%s/%s" % (t, target_folder, target_file), "tmp_file/t:%s_%s"  % (target_folder, target_file))
 
 def d2v(model_name, iter_count):
     """
