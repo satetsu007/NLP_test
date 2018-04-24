@@ -4,6 +4,7 @@ from gensim.models import word2vec, fasttext, doc2vec
 from test import load_model, show_wv
 import gensim
 import smart_open
+import os
 
 """
 実装済み関数
@@ -35,3 +36,26 @@ def read_corpus(fname, tokens_only=False):
             else:
                 # For training data, add tags
                 yield gensim.models.doc2vec.TaggedDocument(gensim.utils.simple_preprocess(line), [i])
+
+def read_docs(folder_name="tmp_file", tokens_only=False):
+    fnames = os.listdir(folder_name)
+    for i, fname in enumerate(fnames):
+        f = open("%s/%s" % (folder_name, fname))
+        txt = f.read()
+        if tokens_only:
+            yield gensim.utils.simple_preprocess(txt)
+        else:
+            # For training data, add tags
+            yield gensim.models.doc2vec.TaggedDocument(gensim.utils.simple_preprocess(txt), [i])
+
+def to_fname(i, folder_name="tmp_file"):
+    return os.listdir(folder_name)[i]
+    
+def to_iter(fname, folder_name="tmp_file"):
+    return os.listdir(folder_name).index(fname)
+
+def swap(var):
+    if type(var) == int:
+        return to_fname(var)
+    elif type(var) == str:
+        return to_iter(var)

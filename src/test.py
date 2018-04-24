@@ -72,7 +72,7 @@ def calc_sim_wv(wv1, wv2):
 
 def calc_sim_dv(dv1, dv2):
     """
-    文章ベクトル間の類似度計算と表示
+    文章ベクトル間の類似度計算と表示
 
     dv1: 文書ベクトル
     dv2: 文書ベクトル
@@ -80,7 +80,7 @@ def calc_sim_dv(dv1, dv2):
 
 def wordclowd():
     """
-    文書・単語ベクトル間の類似度を可視化
+    文書・単語ベクトル間の類似度を可視化
     """
 
 def main():
