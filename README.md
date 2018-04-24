@@ -127,3 +127,6 @@ http://tensorflow.classcat.com/2016/03/12/tensorflow-cc-word2vec/
 - Word2Vec・Doc2Vec・FastTextでの単語ベクトルの学習(重み)の比較
 - nlp_with_tag.pyの改良
 - 前処理の実装(参照: https://qiita.com/Hironsan/items/2466fe0f344115aff177)
+- 辞書データの拡充(金融用語)
+- BoW化プログラム
+- LSTMを使った文章生成プログラム
