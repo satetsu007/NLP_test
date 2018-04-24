@@ -29,6 +29,7 @@ jupyter notebookを保存
 - nlp_with_gensim.py
 - nlp_with_tensorflow.py
 - nlp_with_fasttext.py
+- nlp_with_tag.py
 - weight.py
 - module.py
 
@@ -93,6 +94,7 @@ tensorflow: https://www.tensorflow.org/<br>
 - テキストファイルを結合(light, middle, allの3パターン)
 - 各種アルゴリズムを使用したtrain/testファイルの作成
 - word2vec(with tensorflow)
+- doc2vec(過去実装分)のdoctag考慮ver
 
 参考URL: http://www.madopro.net/entry/word2vec_with_tensorflow,
 http://tensorflow.classcat.com/2016/03/12/tensorflow-cc-word2vec/
@@ -123,5 +125,5 @@ http://tensorflow.classcat.com/2016/03/12/tensorflow-cc-word2vec/
 ## やること
 
 - Word2Vec・Doc2Vec・FastTextでの単語ベクトルの学習(重み)の比較
-- 過去に作成した機能の実装(各種学習方法 ← doc2vec)
-- doc2vecの文書タグ付け
+- nlp_with_tag.pyの改良
+- 前処理の実装(参照: https://qiita.com/Hironsan/items/2466fe0f344115aff177)
