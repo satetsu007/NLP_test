@@ -131,3 +131,5 @@ http://tensorflow.classcat.com/2016/03/12/tensorflow-cc-word2vec/
 - 辞書データの拡充(金融用語)
 - BoW化プログラム
 - LSTMを使った文章生成プログラム
+
+- 正規表現確認サイト(https://regex101.com/)
