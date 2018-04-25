@@ -12,6 +12,10 @@ def preset(text):
     テキストの前処理
     """
 
+def clean(text):
+    """
+    """
+
 def clean_text(text):
     replaced_text = '\n'.join(s.strip() for s in text.splitlines()[2:] if s != '')  # skip header by [2:]
     replaced_text = replaced_text.lower()
@@ -24,6 +28,9 @@ def clean_text(text):
     return replaced_text
 
 def clean_html_tags(html_text):
+    """
+    htmlタグの除去
+    """
     soup = BeautifulSoup(html_text, 'html.parser')
     cleaned_text = soup.get_text()
     cleaned_text = ''.join(cleaned_text.splitlines())
@@ -38,15 +45,14 @@ def clean_html_and_js_tags(html_text):
 
 def clean_url(html_text):
     """
-    \S+ matches all non-whitespace characters (the end of the url)
-    :param html_text:
-    :return:
+    urlの除去
     """
     clean_text = re.sub(r'http\S+', '', html_text)
     return clean_text
 
 def clean_code(html_text):
-    """Qiitaのコードを取り除きます
+    """
+    Qiitaのコードを取り除きます
     :param html_text:
     :return:
     """
@@ -93,6 +99,9 @@ def normalize_unicode(text, form='NFKC'):
     return normalized_text
 
 def normalize_number(text):
+    """
+    連続する数字を0に置換する
+    """
     # 連続した数字を0で置換
     replaced_text = re.sub(r'\d+', '0', text)
     return replaced_text
