@@ -1,9 +1,5 @@
 data/individual_stock
 data/tmp
-data/main
-data/target
-data/tmp_file
-data/csv
 model
 ipynb/.ipynb_checkpoints
 src/__pycache__
