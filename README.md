@@ -32,6 +32,7 @@ jupyter notebookを保存
 - nlp_with_tag.py
 - weight.py
 - module.py
+- preset.py
 
 ***
 
