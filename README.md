@@ -30,13 +30,23 @@ jupyter notebookを保存
 
 ### src
 
-- nlp_with_gensim.py
-- nlp_with_tensorflow.py
-- nlp_with_fasttext.py
-- nlp_with_tag.py
-- weight.py
+- bow.py
+- compare.py
 - module.py
+
+- nlp_with_doc2vec.py
+- nlp_with_fasttext.py
+- nlp_with_gensim.py
+- nlp_with_tag.py
+- nlp_with_tensorflow.py
+- nlp_with_word2vec.py
+
 - preset.py
+- test.py
+- tfidf.py
+- train.py
+- weight.py
+
 
 ***
 
@@ -54,9 +64,13 @@ jupyter notebookを保存
 
 #### w2v
 
+#### ft
+
 #### d2v
 
-#### ft
+#### bow
+
+#### tfidf
 
 #### main
 
@@ -81,6 +95,8 @@ jupyter notebookを保存
 ***
 
 ### src/nlp_with_gensim.py
+
+実行ファイル
 
 ***
 
