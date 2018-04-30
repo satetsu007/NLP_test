@@ -38,7 +38,7 @@ def read_corpus(fname, tokens_only=False):
                 # For training data, add tags
                 yield gensim.models.doc2vec.TaggedDocument(gensim.utils.simple_preprocess(line), [i])
 
-def d2v_read_docs(folder_name):
+def d2v_read_docs(folder_name, tokens_only):
     fnames = os.listdir(folder_name)
     for i, fname in enumerate(fnames):
         f = open("%s/%s" % (folder_name, fname))
@@ -60,7 +60,7 @@ def bow_read_docs(folder_name):
 
 def read_docs(mode="doc2vec", folder_name="tmp_file", tokens_only=False):
     if mode=="doc2vec":
-        d2v_read_docs(folder_name)
+        d2v_read_docs(folder_name, tokens_only)
     elif mode=="bow":
         return bow_read_docs(folder_name)
 
