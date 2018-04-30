@@ -32,19 +32,21 @@ def train(model_type, model_name):
 def set_data():
     m = "main"
     t = "target"
-    main_folders = os.listdir(m)
-    target_folders = os.listdir(t)
+    main_folders = [m_f for m_f in os.listdir(m) if not m_f==".DS_Store"]
+    target_folders = [t_f for t_f in os.listdir(t) if not t_f==".DS_Store"]
 
-    main_files = [os.listdir("%s/%s" % (m, m_f)) for m_f in main_folders]
-    target_files = [os.listdir("%s/%s" % (t, t_f)) for t_f in target_folders]
+    main_files = [os.listdir("%s/%s" % (m, m_f)) for m_f in main_folders if os.path.isdir(("%s/%s") % (m, m_f))]
+    target_files = [os.listdir("%s/%s" % (t, t_f)) for t_f in target_folders if os.path.isdir(("%s/%s") % (t, t_f))]
 
     for i, main_folder in enumerate(main_folders):
         for main_file in main_files[i]:
-            shutil.copy("%s/%s/%s" % (m, main_folder, main_file), "tmp_file/m:%s_%s"  % (main_folder, main_file))
+            if main_file[-4:] == ".txt":
+                shutil.copy("%s/%s/%s" % (m, main_folder, main_file), "tmp_file/m:%s_%s"  % (main_folder, main_file))
 
     for i, target_folder in enumerate(target_folders):
         for target_file in target_files[i]:
-            shutil.copy("%s/%s/%s" % (t, target_folder, target_file), "tmp_file/t:%s_%s"  % (target_folder, target_file))
+            if main_file[-4:] == ".txt":
+                shutil.copy("%s/%s/%s" % (t, target_folder, target_file), "tmp_file/t:%s_%s"  % (target_folder, target_file))
 
 def d2v(model_name, iter_count):
     """
