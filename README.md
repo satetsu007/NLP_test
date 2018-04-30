@@ -7,6 +7,10 @@ tensorflow==1.3.0
 gensim==3.4.0
 fasttext==0.8.3
 
+***
+
+##  過去実装分との違い
+
 
 ***
 
@@ -129,7 +133,8 @@ http://tensorflow.classcat.com/2016/03/12/tensorflow-cc-word2vec/
 - nlp_with_tag.pyの改良
 - 前処理の実装(参照: https://qiita.com/Hironsan/items/2466fe0f344115aff177)
 - 辞書データの拡充(金融用語)
-- BoW化プログラム
+- BoW, TFIDFプログラム(http://ailaby.com/tfidf/)
 - LSTMを使った文章生成プログラム
+- 過去実装分との違い, 操作マニュアルの作成
 
 - 正規表現確認サイト(https://regex101.com/)
