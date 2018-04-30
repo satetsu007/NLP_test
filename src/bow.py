@@ -29,6 +29,8 @@ def bow2df(mat, vocab, folder_name="tmp_file"):
 def bow(model_name):
     """
     Bag of Words
+
+    scikit-learnを使用
     """
     print("prepare data.")
     os.chdir("data")

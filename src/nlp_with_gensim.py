@@ -11,9 +11,14 @@ def main():
     gensimを使用して単語ベクトルを学習, モデルの保存を行う.
     各種学習アルゴリズムは下記関数にて呼び出す.
     
+    単語→ベクトル化
     word2vec: w2v
-    doc2vec: d2v
     fasttext: ft
+    
+    文章→ベクトル化
+    doc2vec: d2v
+    bow(bag-of-words): bow
+    tfidf(tf-idf): tfidf
 
     NLP_testフォルダから実行すること
 
