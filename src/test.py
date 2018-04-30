@@ -1,5 +1,6 @@
 # coding: utf-8
-from gensim.models import word2vec, fasttext, doc2vec
+from gensim.models import word2vec, fasttext, doc2vec, TfidfModel
+from gensim.corpora import Dictionary
 import os
 import sys
 import gensim
@@ -11,8 +12,8 @@ def test(model_type, model_name):
     """
 
     model = load_model(model_type, model_name)
-    show_wv(model)
-    show_dv(model_type, model)
+    # show_wv(model)
+    # show_dv(model_type, model)
 
 def load_model(model_type, model_name):
     """
@@ -26,6 +27,8 @@ def load_model(model_type, model_name):
         model = doc2vec.Doc2Vec.load("model/%s" % model_name)
     elif(model_type=="fasttext"):
         model = fasttext.FastText.load("model/%s" % model_name)
+    elif(model_type=="tfidf"):
+        model = TfidfModel.load("model/%s" % model_name)
 
     return model
 

@@ -38,24 +38,31 @@ def read_corpus(fname, tokens_only=False):
                 # For training data, add tags
                 yield gensim.models.doc2vec.TaggedDocument(gensim.utils.simple_preprocess(line), [i])
 
-def read_docs(mode="doc2vec", folder_name="tmp_file", tokens_only=False):
+def d2v_read_docs(folder_name):
     fnames = os.listdir(folder_name)
+    for i, fname in enumerate(fnames):
+        f = open("%s/%s" % (folder_name, fname))
+        txt = f.read()
+        if tokens_only:
+            yield gensim.utils.simple_preprocess(txt)
+        else:
+            # For training data, add tags
+            yield gensim.models.doc2vec.TaggedDocument(gensim.utils.simple_preprocess(txt), [i])
+
+def bow_read_docs(folder_name):
+    fnames = os.listdir(folder_name)
+    corpus_list = []
+    for fname in fnames:
+        f = open("%s/%s" % (folder_name, fname))
+        txt = f.read()
+        corpus_list.append(txt.split())
+    return corpus_list
+
+def read_docs(mode="doc2vec", folder_name="tmp_file", tokens_only=False):
     if mode=="doc2vec":
-        for i, fname in enumerate(fnames):
-            f = open("%s/%s" % (folder_name, fname))
-            txt = f.read()
-            if tokens_only:
-                yield gensim.utils.simple_preprocess(txt)
-            else:
-                # For training data, add tags
-                yield gensim.models.doc2vec.TaggedDocument(gensim.utils.simple_preprocess(txt), [i])
-    elif mode=="bow" or mode=="tfidf":
-        corpus_list = []
-        for fname in fnames:
-            f = open("%s/%s" % (folder_name, fname))
-            txt = f.read()
-            corpus_list.append(txt)
-        return corpus_list
+        d2v_read_docs(folder_name)
+    elif mode=="bow":
+        return bow_read_docs(folder_name)
 
 def set_data():
     m = "main"

@@ -134,6 +134,7 @@ http://tensorflow.classcat.com/2016/03/12/tensorflow-cc-word2vec/
 - 前処理の実装(参照: https://qiita.com/Hironsan/items/2466fe0f344115aff177)
 - 辞書データの拡充(金融用語)
 - BoW, TFIDFプログラム(http://ailaby.com/tfidf/)
+- TFIDF(https://qiita.com/3000manJPY/items/a0652d488ce3c956613d)
 - LSTMを使った文章生成プログラム
 - 過去実装分との違い, 操作マニュアルの作成
 

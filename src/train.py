@@ -1,13 +1,13 @@
 # coding: utf-8
 # coding: utf-8
 from gensim.models import word2vec, fasttext, doc2vec, TfidfModel
+from gensim.corpora import Dictionary
 import logging
 import os
 import sys
 import gensim
 import smart_open
 from module import set_data, read_docs
-from gensim.corpora import Dictionary
 
 def train(model_type, model_name):
     """
@@ -94,7 +94,7 @@ def d2v(model_name, iter_count):
     print("prepare data.")
     os.chdir("data")
     set_data()
-    sentences = list(read_docs())
+    sentences = list(read_docs(mode=False))
 
     print("train model.")
     # workers=1にしなければseed固定は意味がない(ドキュメントより)
@@ -114,7 +114,9 @@ def bow(model_name):
     print("prepare data.")
     os.chdir("data")
     set_data()
-    sentences = read_docs(mode="bow")
+    sentences = read_docs()
+
+    dic = Dictionary(sentences)
 
 def tfidf(model_name):
     """
@@ -123,13 +125,14 @@ def tfidf(model_name):
     print("prepare data.")
     os.chdir("data")
     set_data()
-    sentences = read_docs(mode="tfidf")
+    sentences = read_docs()
 
     dic = Dictionary(sentences)
     ## 「出現頻度が20未満の単語」と「30%以上の文書で出現する単語」を排除
     ## dic.filter_extremes(no_below = 20, no_above = 0.3)
     bow_corpus = [dic.doc2bow(d) for d in sentences]
 
+    print("train model.")
     model = TfidfModel(bow_corpus)
 
     print("save model.")
