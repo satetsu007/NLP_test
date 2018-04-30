@@ -114,7 +114,7 @@ def bow(model_name):
     print("prepare data.")
     os.chdir("data")
     set_data()
-    sentences = read_docs()
+    sentences = read_docs(mode="bow")
 
     dic = Dictionary(sentences)
 
@@ -125,7 +125,7 @@ def tfidf(model_name):
     print("prepare data.")
     os.chdir("data")
     set_data()
-    sentences = read_docs()
+    sentences = read_docs(mode="bow")
 
     dic = Dictionary(sentences)
     ## 「出現頻度が20未満の単語」と「30%以上の文書で出現する単語」を排除
