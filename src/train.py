@@ -7,7 +7,7 @@ import os
 import sys
 import gensim
 import smart_open
-from module import set_data, read_docs
+from module import set_data, read_docs, bow2vec
 
 def train(model_type, model_name):
     """
@@ -116,7 +116,12 @@ def bow(model_name):
     set_data()
     sentences = read_docs(mode="bow")
 
+    print("train model.")
     dic = Dictionary(sentences)
+
+    print("save model.")
+    os.chdir("..")
+    dic.save_as_text("model/%s" % model_name)
 
 def tfidf(model_name):
     """

@@ -1,6 +1,7 @@
 # coding: utf-8
 
 from gensim.models import word2vec, fasttext, doc2vec
+from gensim.matutils import corpus2dense
 from test import load_model, show_wv
 import gensim
 import smart_open
@@ -63,6 +64,9 @@ def read_docs(mode="doc2vec", folder_name="tmp_file", tokens_only=False):
         d2v_read_docs(folder_name, tokens_only)
     elif mode=="bow":
         return bow_read_docs(folder_name)
+
+def bow2vec(vec, num_terms):
+    return list(corpus2dense([vec], num_terms=num_terms).T[0])
 
 def set_data():
     m = "main"
