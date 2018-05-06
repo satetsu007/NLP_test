@@ -14,8 +14,10 @@ def test(model_type, model_name):
     model = load_model(model_type, model_name)
 
     # 文章の処理
-    if model_type=="doc2vec":
-        
+    #if model_type=="doc2vec":
+    #    print("")
+    # 単語の処理
+
     # show_wv(model)
     # show_dv(model_type, model)
 
