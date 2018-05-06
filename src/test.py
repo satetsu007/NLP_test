@@ -8,10 +8,14 @@ import random
 
 def test(model_type, model_name):
     """
-    write codes.
+    モデルを読み込み各種処理を行う.
     """
 
     model = load_model(model_type, model_name)
+
+    # 文章の処理
+    if model_type=="doc2vec":
+        
     # show_wv(model)
     # show_dv(model_type, model)
 
@@ -28,8 +32,9 @@ def load_model(model_type, model_name):
     elif(model_type=="fasttext"):
         model = fasttext.FastText.load("model/%s" % model_name)
     elif(model_type=="bow"):
-        # write code.
-        print("")
+        # 要corpusの読み込み
+        # corpus = [text.split() for text in texts]
+        model = Dictionary.load("model/%s" % model_name)
     elif(model_type=="tfidf"):
         model = TfidfModel.load("model/%s" % model_name)
 

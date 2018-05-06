@@ -117,11 +117,11 @@ def bow(model_name):
     sentences = read_docs(mode="bow")
 
     print("train model.")
-    dic = Dictionary(sentences)
+    model = Dictionary(sentences)
 
     print("save model.")
     os.chdir("..")
-    dic.save_as_text("model/%s" % model_name)
+    model.save("model/%s" % model_name)
 
 def tfidf(model_name):
     """
