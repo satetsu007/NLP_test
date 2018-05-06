@@ -27,6 +27,9 @@ def load_model(model_type, model_name):
         model = doc2vec.Doc2Vec.load("model/%s" % model_name)
     elif(model_type=="fasttext"):
         model = fasttext.FastText.load("model/%s" % model_name)
+    elif(model_type=="bow"):
+        # write code.
+        print("")
     elif(model_type=="tfidf"):
         model = TfidfModel.load("model/%s" % model_name)
 
