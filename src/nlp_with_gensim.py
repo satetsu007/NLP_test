@@ -23,7 +23,7 @@ def main():
     NLP_testフォルダから実行すること
 
     実行例(fasttextを使用して学習)
-    python nlp_with_gensim.py train fasttext 1
+    python src/nlp_with_gensim.py train fasttext 1
     """
 
     logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
