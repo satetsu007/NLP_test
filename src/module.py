@@ -69,6 +69,9 @@ def bow2vec(vec, num_terms):
     return list(corpus2dense([vec], num_terms=num_terms).T[0])
 
 def set_data():
+    """
+    学習データの準備を行う
+    """
     m = "main"
     t = "target"
     main_folders = [m_f for m_f in os.listdir(m) if not m_f==".DS_Store"]

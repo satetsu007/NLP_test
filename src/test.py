@@ -65,15 +65,15 @@ def show_wv(model, word=None):
 
 def show_dv(model_type, model):
     """
-    文章ベクトルの表示
-    文章ベクトルの計算法(要検討)
+    文章ベクトルの表示(bow, tfidf, doc2vec)
+    文章ベクトルの計算法(要検討➞word2vec, fasttext)
     """
 
     print("show docsvector.")
-    if model_type == "doc2vec":
+    if model_type == "doc2vec" or model_type == "bow" or model_type == "tfidf":
         print("test")
     else:
-        print("only doc2vec.")
+        print("only doc2vec or bow or tfidf.")
 
 def calc_sim_wv(wv1, wv2):
     """
