@@ -2,15 +2,30 @@
 
 ## 実装環境(実行環境)
 
-python==3.5 or 3.6
-tensorflow==1.3.0
-gensim==3.4.0
+python==3.5 or 3.6<br>
+tensorflow==1.3.0<br>
+gensim==3.4.0<br>
 fasttext==0.8.3
 
 ***
 
 ##  過去実装分との違い
 
+- 実装難易度・可読性の向上
+    - 実装時に使用するライブラリをgensimで統一
+    - 実装環境(各種ライブラリのバージョン等)の統一
+- MeCabを未インストールの端末でも実行可能に
+    - 前処理と実行ファイルを切り分けた
+- 様々なベクトル化アルゴリズムを取り入れた
+    - doc2vec
+    - bow
+    - tfidf
+    - word2vec
+    - fasttext
+- 処理速度の向上
+    - 無駄な処理の削減, 効率的なプログラムの実装
+- 不要ファイルの排除
+- コメント, 使用方法等の拡充
 
 ***
 
@@ -116,6 +131,7 @@ tensorflow: https://www.tensorflow.org/<br>
 - 各種アルゴリズムを使用したtrain/testファイルの作成
 - word2vec(with tensorflow)
 - doc2vec(過去実装分)のdoctag考慮ver
+- bow, tfidfのベクトル化(ipynb参照)
 
 参考URL: http://www.madopro.net/entry/word2vec_with_tensorflow,
 http://tensorflow.classcat.com/2016/03/12/tensorflow-cc-word2vec/
@@ -145,13 +161,16 @@ http://tensorflow.classcat.com/2016/03/12/tensorflow-cc-word2vec/
 
 ## やること
 
-- Word2Vec・Doc2Vec・FastTextでの単語ベクトルの学習(重み)の比較
-- nlp_with_tag.pyの改良
+- bow, tfidfのtrainへの実装
 - 前処理の実装(参照: https://qiita.com/Hironsan/items/2466fe0f344115aff177)
-- 辞書データの拡充(金融用語)
-- BoW, TFIDFプログラム(http://ailaby.com/tfidf/)
-- TFIDF(https://qiita.com/3000manJPY/items/a0652d488ce3c956613d)
+    - 正規表現確認サイト(https://regex101.com/)
+    - 辞書データの拡充(金融用語)
 - LSTMを使った文章生成プログラム
 - 過去実装分との違い, 操作マニュアルの作成
+- 単語のベクトル化, 文章のベクトル化の読み込みデータの統一
+    - main, target内のファイルを統合したtmp(仮).txtの作成&読み込み
+- 各種アルゴリズムのベクトル比較
+    - 文章ベクトルについては, 類似度計算結果をcsvファイルで出力
+    - 単語ベクトルの比較は検討中
+- 各種アルゴリズムを全て実行するmother(仮).pyの作成
 
-- 正規表現確認サイト(https://regex101.com/)
