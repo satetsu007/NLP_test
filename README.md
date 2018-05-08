@@ -170,7 +170,7 @@ http://tensorflow.classcat.com/2016/03/12/tensorflow-cc-word2vec/
 
 ## やること
 
-- bow, tfidfのtest向けcalc_similarity(仮)の実装
+- bow, tfidf用のcalc_similarity(仮)の実装
 - 前処理の実装(参照: https://qiita.com/Hironsan/items/2466fe0f344115aff177)
     - 正規表現確認サイト(https://regex101.com/)
     - 辞書データの拡充(金融用語)
