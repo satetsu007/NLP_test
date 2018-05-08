@@ -7,14 +7,57 @@ import unicodedata
 import nltk
 from bs4 import BeautifulSoup
 
-def preset(text):
+def main():
+    """
+    テキストの前処理を行う
+
+    標準でmain, targetフォルダを読み込む
+    """
+
+    print("preset.")
+    os.chdir("data")
+    preset()
+
+def preset():
     """
     テキストの前処理
     """
 
+    m = "main"
+    t = "target"
+    main_folders = [m_f for m_f in os.listdir(m) if not m_f==".DS_Store"]
+    target_folders = [t_f for t_f in os.listdir(t) if not t_f==".DS_Store"]
+
+    main_files = [os.listdir("%s/%s" % (m, m_f)) for m_f in main_folders if os.path.isdir(("%s/%s") % (m, m_f))]
+    target_files = [os.listdir("%s/%s" % (t, t_f)) for t_f in target_folders if os.path.isdir(("%s/%s") % (t, t_f))]
+
+    for i, main_folder in enumerate(main_folders):
+        for main_file in main_files[i]:
+            if main_file[-4:] == ".txt":
+                f = open("%s/%s/%s" % (m, main_folder, main_file), "r")
+                text = f.read()
+                f.close()
+                text = clean(text)
+                text = normalize(text)
+                text = wakati(text)
+
+    for i, target_folder in enumerate(target_folders):
+        for target_file in target_files[i]:
+            if main_file[-4:] == ".txt":
+                f = open("%s/%s/%s" % (t, target_folder, target_file), "r")
+                text = f.read()
+                f.close()
+                text = clean(text)
+                text = normalize(text)
+                text = wakati(text)
+
+
+
 def clean(text):
     """
     """
+
+    return text
 
 def clean_text(text):
     replaced_text = '\n'.join(s.strip() for s in text.splitlines()[2:] if s != '')  # skip header by [2:]
@@ -61,19 +104,34 @@ def clean_code(html_text):
     cleaned_text = ''.join(cleaned_text.splitlines())
     return cleaned_text
 
-def wakati(text):
+def wakati(text, mode="wakati", original=True):
     """
     入力文章を分かち書きして出力
-    """
-    t = MeCab.Tagger("-Owakati")
-    return t.parse(text)
 
-def remove_stopword(text):
+    mode: wakati or morph
+        wakati: 単純に分かち書き処理
+        morph: 形態素の品詞を判別して不要な単語を除去 → 分かち書き処理
+    original: True or False
+        True: mode==morph時に単語の原形を取り出す
+        False: mode==morph時に文中の単語を取り出す
     """
-    ストップワードを除去する
+    if mode=="wakati":
+        t = MeCab.Tagger("-Owakati")
+        return t.parse(text)
+    elif mode=="morph":
+        t = MeCab.Tagger("")
+        # 抜き出す品詞リスト
+        parts_of_speech = ["名詞", "動詞", "形容詞", "形容動詞"]
+        if original:
+            morphs = [[line.split(",")[-3], line.split(",")[0].split("\t")[-1]] for line in t.parse(text).split("\n")[:-2]]
+        else:
+            morphs = [line.split(",")[0].split("\t") for line in t.parse(text).split("\n")[:-2]]
+        morphs = [morph[0] for morph in morphs if morph[1] in parts_of_speech]
 
-    記号や数字、助詞等
-    """
+        tmp = ""
+        for morph in morphs:
+            tmp += morph + " "
+        return tmp
 
 def normalize(text):
     """
@@ -104,3 +162,6 @@ def normalize_number(text):
     # 連続した数字を0で置換
     replaced_text = re.sub(r'\d+', '0', text)
     return replaced_text
+
+if __name__ == "__main__":
+    main()
