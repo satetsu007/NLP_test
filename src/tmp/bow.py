@@ -1,7 +1,6 @@
 import numpy as np
 import os
 import pandas as pd
-from nlp_with_tag import set_data
 from sklearn.feature_extraction.text import CountVectorizer as CV
 
 def read_docs(folder_name="tmp_file"):
@@ -34,7 +33,6 @@ def bow(model_name):
     """
     print("prepare data.")
     os.chdir("data")
-    set_data()
 
     print("train model.")
     corpus_list = read_docs()
