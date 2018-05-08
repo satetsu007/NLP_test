@@ -48,7 +48,7 @@ def train(model_type, model_name):
     elif(model_type=="tfidf"):
         tfidf(model_name)
     elif(model_type=="all"):
-        tmp_name = model_name[:-6]
+        tmp_name = model_name[-7:]
         model_name = "word2vec_%s" % tmp_name
         w2v(model_name, iter_count)
         model_name = "fasttext_%s" % tmp_name

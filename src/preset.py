@@ -25,9 +25,10 @@ def preset():
 
     m = "main"
     t = "target"
+
     main_folders = [m_f for m_f in os.listdir(m) if not m_f==".DS_Store"]
     target_folders = [t_f for t_f in os.listdir(t) if not t_f==".DS_Store"]
-
+    
     main_files = [os.listdir("%s/%s" % (m, m_f)) for m_f in main_folders if os.path.isdir(("%s/%s") % (m, m_f))]
     target_files = [os.listdir("%s/%s" % (t, t_f)) for t_f in target_folders if os.path.isdir(("%s/%s") % (t, t_f))]
 
@@ -47,7 +48,7 @@ def preset():
     for i, target_folder in enumerate(target_folders):
         for target_file in target_files[i]:
             if target_file[-4:] == ".txt" and not "wakati" in target_file:
-                f = open("%s/%s/%s" % (t, target_folder, target_file), "r")
+                f = open("%s/%s/%s" % (t, target_folder, target_file), "r", encoding="utf-8")
                 text = f.read()
                 f.close()
                 text = clean(text)
