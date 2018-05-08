@@ -33,30 +33,35 @@ def preset():
 
     for i, main_folder in enumerate(main_folders):
         for main_file in main_files[i]:
-            if main_file[-4:] == ".txt":
-                f = open("%s/%s/%s" % (m, main_folder, main_file), "r")
+            if main_file[-4:] == ".txt" and not "wakati" in main_file:
+                f = open("%s/%s/%s" % (m, main_folder, main_file), "r", encoding="utf-8")
                 text = f.read()
                 f.close()
                 text = clean(text)
                 text = normalize(text)
                 text = wakati(text)
+                f = open("%s/%s/%s" % (m, main_folder, main_file[:-4]+"_wakati"+main_file[-4:]), "w", encoding="utf-8")
+                text = f.write(text)
+                f.close()
 
     for i, target_folder in enumerate(target_folders):
         for target_file in target_files[i]:
-            if main_file[-4:] == ".txt":
+            if target_file[-4:] == ".txt" and not "wakati" in target_file:
                 f = open("%s/%s/%s" % (t, target_folder, target_file), "r")
                 text = f.read()
                 f.close()
                 text = clean(text)
                 text = normalize(text)
                 text = wakati(text)
-
+                f = open("%s/%s/%s" % (t, target_folder, target_file[:-4]+"_wakati"+target_file[-4:]), "w", encoding="utf-8")
+                text = f.write(text)
+                f.close()
 
 
 def clean(text):
     """
     """
-
+    text = clean_text(text)
     return text
 
 def clean_text(text):
