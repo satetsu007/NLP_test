@@ -1,4 +1,5 @@
 # coding: utf-8
+# train, testで呼び出す様々な関数
 
 from gensim.models import word2vec, fasttext, doc2vec
 from gensim.matutils import corpus2dense
@@ -7,10 +8,6 @@ import gensim
 import smart_open
 import os
 import shutil
-
-"""
-実装済み関数
-"""
 
 def compare(model_no, word=None):
     """
@@ -31,6 +28,10 @@ def compare(model_no, word=None):
         show_wv(model, word=word)
 
 def read_corpus(fname, tokens_only=False):
+    """
+    doc2vecに必要なデータ形式で
+    複数ファイルを読み込む
+    """
     with smart_open.smart_open(fname, encoding="utf-8") as f:
         for i, line in enumerate(f):
             if tokens_only:
@@ -40,6 +41,13 @@ def read_corpus(fname, tokens_only=False):
                 yield gensim.models.doc2vec.TaggedDocument(gensim.utils.simple_preprocess(line), [i])
 
 def d2v_read_docs(folder_name, tokens_only):
+    """
+    doc2vecに必要なデータ形式で
+    複数ファイルを読み込む
+    文章タグを同時に付与する
+    
+    ※read_corpusを拡張したもの
+    """
     fnames = os.listdir(folder_name)
     for i, fname in enumerate(fnames):
         f = open("%s/%s" % (folder_name, fname))
@@ -51,6 +59,10 @@ def d2v_read_docs(folder_name, tokens_only):
             yield gensim.models.doc2vec.TaggedDocument(gensim.utils.simple_preprocess(txt), [i])
 
 def bow_read_docs(folder_name):
+    """
+    doc2vecに必要なデータ形式で
+    複数ファイルを読み込む
+    """
     fnames = os.listdir(folder_name)
     corpus_list = []
     for fname in fnames:
@@ -59,13 +71,10 @@ def bow_read_docs(folder_name):
         corpus_list.append(txt.split())
     return corpus_list
 
-def read_docs(mode="doc2vec", folder_name="tmp_file", tokens_only=False):
-    if mode=="doc2vec":
-        d2v_read_docs(folder_name, tokens_only)
-    elif mode=="bow":
-        return bow_read_docs(folder_name)
-
 def bow2vec(vec, num_terms):
+    """
+    gensimのbow形式からbowのベクトルを生成
+    """
     return list(corpus2dense([vec], num_terms=num_terms).T[0])
 
 def set_data(mode="word"):
@@ -106,12 +115,18 @@ def set_data(mode="word"):
         f.write(tmp_txt)
 
 def to_fname(i, folder_name="tmp_file"):
+    """
+    """
     return os.listdir(folder_name)[i]
     
 def to_iter(fname, folder_name="tmp_file"):
+    """
+    """
     return os.listdir(folder_name).index(fname)
 
 def swap(var):
+    """
+    """
     if type(var) == int:
         return to_fname(var)
     elif type(var) == str:

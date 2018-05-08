@@ -1,11 +1,21 @@
-# Word2Vec, Doc2Vec, fasttextのベクトル化プログラム作成
+# 文章, 単語のベクトル化プログラム
 
 ## 実装環境(実行環境)
 
-python==3.5 or 3.6<br>
-tensorflow==1.3.0<br>
-gensim==3.4.0<br>
-fasttext==0.8.3
+python == 3.5 or 3.6<br>
+tensorflow == 1.3.0<br>
+gensim == 3.4.0<br>
+fasttext == 0.8.3
+
+***
+
+## 実行順序
+
+前処理 → 本処理 (→ 各種アルゴリズムの比較等)
+
+1. preset.pyを実行
+2. nlp_with_gensim.py train を実行
+3. nlp_with_gensim.py test を実行
 
 ***
 
@@ -23,7 +33,7 @@ fasttext==0.8.3
     - word2vec
     - fasttext
 - 処理速度の向上
-    - 無駄な処理の削減, 効率的なプログラムの実装
+    - 無駄な処理の削減, 効率的なプログラム(既存のライブラリ使用等)の実装
 - 不要ファイルの排除
 - コメント, 使用方法等の拡充
 
@@ -139,10 +149,9 @@ http://tensorflow.classcat.com/2016/03/12/tensorflow-cc-word2vec/
 ### gensimを使ったベクトル化プログラム(seed固定方法)
 
 1. データセットに対してベクトル化のみ
-2. workersの固定(並列処理しない)
-3. シード値の固定(word2vec内)
-4. シード値の固定(numpy.random内)
-5. PYTHONHASHSEEDの固定
+2. workers = 1(並列処理しない)
+3. シード値の固定(gensim内)
+4. PYTHONHASHSEEDの固定
 
 上記のパターンはgensim.models.word2vec参照([公式ドキュメント](https://radimrehurek.com/gensim/models/word2vec.html))
 
@@ -161,16 +170,12 @@ http://tensorflow.classcat.com/2016/03/12/tensorflow-cc-word2vec/
 
 ## やること
 
-- bow, tfidfのtrainへの実装
+- bow, tfidfのtest向けcalc_similarity(仮)の実装
 - 前処理の実装(参照: https://qiita.com/Hironsan/items/2466fe0f344115aff177)
     - 正規表現確認サイト(https://regex101.com/)
     - 辞書データの拡充(金融用語)
-- LSTMを使った文章生成プログラム
 - 過去実装分との違い, 操作マニュアルの作成
-- 単語のベクトル化, 文章のベクトル化の読み込みデータの統一
-    - main, target内のファイルを統合したtmp(仮).txtの作成&読み込み
 - 各種アルゴリズムのベクトル比較
     - 文章ベクトルについては, 類似度計算結果をcsvファイルで出力
     - 単語ベクトルの比較は検討中
-- 各種アルゴリズムを全て実行するmother(仮).pyの作成
-
+- LSTMを使った文章生成プログラム

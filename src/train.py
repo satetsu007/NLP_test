@@ -7,7 +7,7 @@ import os
 import sys
 import gensim
 import smart_open
-from module import set_data, read_docs, bow2vec, d2v_read_docs, bow_read_docs
+from module import set_data, bow2vec, d2v_read_docs, bow_read_docs
 
 def train(model_type, model_name):
     """
@@ -15,18 +15,19 @@ def train(model_type, model_name):
     各種学習アルゴリズムは下記関数にて呼び出す.
     
     単語→ベクトル化
-    標準でmain, targetフォルダ内のファイルを統合したtmp.txtを読み込む
+        標準でmain, targetフォルダ内のファイルを統合したtmp.txtを読み込む
 
     word2vec: w2v
     fasttext: ft
     
     文章→ベクトル化
-    標準でmain, targetフォルダを読み込む
+        標準でmain, targetフォルダを読み込む
+    
     doc2vec: d2v
     bow(bag-of-words): bow
     tfidf(tf-idf): tfidf
 
-    NLP_testフォルダから実行すること
+    NLPフォルダから実行すること
 
     実行例(fasttextを使用して学習)
     python nlp_with_gensim.py fasttext 1
@@ -47,16 +48,16 @@ def train(model_type, model_name):
     elif(model_type=="tfidf"):
         tfidf(model_name)
     elif(model_type=="all"):
-        tmp_name = model_name.split("_")[-1]
-        model_name = "word2vec_" + tmp_name
+        tmp_name = model_name[:-6]
+        model_name = "word2vec_%s" % tmp_name
         w2v(model_name, iter_count)
-        model_name = "fasttext_" + tmp_name
+        model_name = "fasttext_%s" % tmp_name
         ft(model_name, iter_count)
-        model_name = "doc2vec_" + tmp_name
+        model_name = "doc2vec_%s" % tmp_name
         d2v(model_name, iter_count)
-        model_name = "bow_" + tmp_name
+        model_name = "bow_%s" % tmp_name
         bow(model_name)
-        model_name = "tfidf_" + tmp_name
+        model_name = "tfidf_%s" % tmp_name
         tfidf(model_name)
 
 def w2v(model_name, iter_count):
