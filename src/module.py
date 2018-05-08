@@ -68,9 +68,13 @@ def read_docs(mode="doc2vec", folder_name="tmp_file", tokens_only=False):
 def bow2vec(vec, num_terms):
     return list(corpus2dense([vec], num_terms=num_terms).T[0])
 
-def set_data():
+def set_data(mode="word"):
     """
     学習データの準備を行う
+
+    mode: word or doc
+        word: word2vec, fasttext時に選択
+        doc: doc2vec, bow, tfidf時に選択
     """
     m = "main"
     t = "target"
@@ -89,6 +93,17 @@ def set_data():
         for target_file in target_files[i]:
             if main_file[-4:] == ".txt":
                 shutil.copy("%s/%s/%s" % (t, target_folder, target_file), "tmp_file/t:%s_%s"  % (target_folder, target_file))
+    
+    if mode=="word":
+        tmp_file_list = os.listdir("tmp_file")
+        tmp_txt = ""
+        for tmp_file in tmp_file_list:
+            f = open("tmp_file/%s" % tmp_file, "r", encoding="utf-8")
+            txt = f.read()
+            f.close()
+            tmp_txt += txt + "\n"
+        f = open("tmp.txt", "w", encoding="utf-8")
+        f.write(tmp_txt)
 
 def to_fname(i, folder_name="tmp_file"):
     return os.listdir(folder_name)[i]

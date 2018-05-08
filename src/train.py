@@ -7,7 +7,7 @@ import os
 import sys
 import gensim
 import smart_open
-from module import set_data, read_docs, bow2vec
+from module import set_data, read_docs, bow2vec, d2v_read_docs, bow_read_docs
 
 def train(model_type, model_name):
     """
@@ -15,7 +15,7 @@ def train(model_type, model_name):
     各種学習アルゴリズムは下記関数にて呼び出す.
     
     単語→ベクトル化
-    標準でdata.txtを読み込む
+    標準でmain, targetフォルダ内のファイルを統合したtmp.txtを読み込む
 
     word2vec: w2v
     fasttext: ft
@@ -32,29 +32,42 @@ def train(model_type, model_name):
     python nlp_with_gensim.py fasttext 1
     """
 
-    corpus_file = "data.txt"
     iter_count = 1
 
     logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
     if(model_type=="word2vec"):
-        w2v(corpus_file, model_name, iter_count)
+        w2v(model_name, iter_count)
     elif(model_type=="fasttext"):
-        ft(corpus_file, model_name, iter_count)
+        ft(model_name, iter_count)
     elif(model_type=="doc2vec"):
         d2v(model_name, iter_count)
     elif(model_type=="bow"):
         bow(model_name)
     elif(model_type=="tfidf"):
         tfidf(model_name)
+    elif(model_type=="all"):
+        tmp_name = model_name.split("_")[-1]
+        model_name = "word2vec_" + tmp_name
+        w2v(model_name, iter_count)
+        model_name = "fasttext_" + tmp_name
+        ft(model_name, iter_count)
+        model_name = "doc2vec_" + tmp_name
+        d2v(model_name, iter_count)
+        model_name = "bow_" + tmp_name
+        bow(model_name)
+        model_name = "tfidf_" + tmp_name
+        tfidf(model_name)
 
-def w2v(corpus_file, model_name, iter_count):
+def w2v(model_name, iter_count):
     """
     word2vec
     """
 
     print("prepare data.")
     os.chdir("data")
+    set_data(mode="word")
+    corpus_file = "tmp.txt"
     sentences = word2vec.LineSentence(corpus_file)
 
     print("train model.")
@@ -65,14 +78,16 @@ def w2v(corpus_file, model_name, iter_count):
     os.chdir("..")
     model.save("model/%s" % model_name)
 
-def ft(corpus_file, model_name, iter_count):
+def ft(model_name, iter_count):
     """
     fasttext
     """
 
     print("prepare data.")
     os.chdir("data")
-    f = open("%s" % corpus_file,  "r", encoding="utf-8")
+    set_data(mode="word")
+    corpus_file = "tmp.txt"
+    f = open("%s" % corpus_file, "r", encoding="utf-8")
     text = f.read()
     sentences = [s.split(" ") for s in text.split("\n")]
     
@@ -93,8 +108,8 @@ def d2v(model_name, iter_count):
 
     print("prepare data.")
     os.chdir("data")
-    set_data()
-    sentences = list(read_docs(mode=False))
+    set_data(mode="doc")
+    sentences = list(d2v_read_docs(folder_name="tmp_file", tokens_only=False))
 
     print("train model.")
     # workers=1にしなければseed固定は意味がない(ドキュメントより)
@@ -113,8 +128,8 @@ def bow(model_name):
 
     print("prepare data.")
     os.chdir("data")
-    set_data()
-    sentences = read_docs(mode="bow")
+    set_data(mode="doc")
+    sentences = bow_read_docs(folder_name="tmp_file")
 
     print("train model.")
     model = Dictionary(sentences)
@@ -129,8 +144,8 @@ def tfidf(model_name):
     """
     print("prepare data.")
     os.chdir("data")
-    set_data()
-    sentences = read_docs(mode="bow")
+    set_data(mode="doc")
+    sentences = bow_read_docs(folder_name="tmp_file")
 
     dic = Dictionary(sentences)
     ## 「出現頻度が20未満の単語」と「30%以上の文書で出現する単語」を排除
