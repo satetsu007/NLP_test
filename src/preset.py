@@ -58,7 +58,6 @@ def preset():
                 text = f.write(text)
                 f.close()
 
-
 def clean(text):
     """
     不要な文字列等を削除する
