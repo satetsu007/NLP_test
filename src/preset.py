@@ -58,9 +58,11 @@ def preset():
                 text = f.write(text)
                 f.close()
 
-
 def clean(text):
     """
+    不要な文字列等を削除する
+
+    clean_XXXを追加していく
     """
     text = clean_text(text)
     return text
@@ -142,6 +144,8 @@ def wakati(text, mode="wakati", original=True):
 def normalize(text):
     """
     文章の正規化
+    
+    normalize_XXXを追加していく
     """
     normalized_text = normalize_unicode(text)
     normalized_text = normalize_number(normalized_text)
