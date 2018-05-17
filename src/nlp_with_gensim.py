@@ -26,6 +26,7 @@ def main():
     python src/nlp_with_gensim.py train fasttext 1
     """
 
+    # 学習経過を表示する
     logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
     argvs = sys.argv  # コマンドライン引数を格納したリストの取得
@@ -40,6 +41,7 @@ def main():
     model_no = argvs[3]
     model_name = "%s_%s.model" % (model_type, model_no)
 
+    # メインの処理
     if(argvs[1]=="train"):
         train(model_type, model_name)
     elif(argvs[1]=="test"):
