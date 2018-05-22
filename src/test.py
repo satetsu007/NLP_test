@@ -149,7 +149,7 @@ def save_vector(model_type, model_name, model=None, dic=None, corpus=None):
         save_df(df, model_name, mode="word")
         df2 = pd.DataFrame(np.array([model.docvecs[i] for i, _ in enumerate(file_names)]))
         df2.index = file_names
-        save_df(df, model_name, mode="doc")
+        save_df(df2, model_name, mode="doc")
     elif(model_type=="fasttext"):
         df = pd.DataFrame(model.wv.vectors)
         df.index = model.wv.vocab.keys()
