@@ -170,8 +170,9 @@ def save_vector(model_type, model_name, model=None, dic=None, corpus=None):
 
 def save_df(df, model_name, mode="word"):
     """
-    pandasのDataFrame形式dfの保存
-
+    dfの保存
+    
+    df: pandasのDataFrame形式
     mode: word or doc
         保存先(dfが文章ベクトルか単語ベクトルか)を決める
     """
