@@ -1,25 +1,59 @@
 # coding: utf-8
 from gensim.models import word2vec, fasttext, doc2vec, TfidfModel
 from gensim.corpora import Dictionary
+from gensim.matutils import corpus2dense
 import os
 import sys
 import gensim
 import random
+import numpy as np
+import pandas as pd
+from module import bow_read_docs, vec2dense
 
 def test(model_type, model_name):
     """
     モデルを読み込み各種処理を行う.
     """
 
-    model = load_model(model_type, model_name)
-
-    # 文章の処理
-    #if model_type=="doc2vec":
-    #    print("")
-    # 単語の処理
-
-    # show_wv(model)
-    # show_dv(model_type, model)
+    # modelを読み込む
+    # 単語, 文章ベクトルをcsv形式で保存する
+    if(model_type=="bow"):
+        dic = load_model(model_type, model_name)
+        corpus = bow_read_docs("data/tmp_file")
+        save_vector(model_type, model_name, model=None, dic=dic, corpus=corpus)
+    elif(model_type=="tfidf"):
+        model = load_model(model_type, model_name)
+        dic = Dictionary.load("model/bow_%s" % model_name[-7:])
+        corpus = bow_read_docs("data/tmp_file")
+        save_vector(model_type, model_name, model=model, dic=dic, corpus=corpus)
+    elif(model_type in ["doc2vec", "word2vec", "fasttext"]):
+        model = load_model(model_type, model_name)
+        save_vector(model_type, model_name, model=model)
+    elif(model_type=="all"):
+        tmp_name = model_name[-7:]
+        model_name = "word2vec_%s" % tmp_name
+        model_type = model_name[:-8]
+        model = load_model(model_type, model_name)
+        save_vector(model_type, model_name, model=model)
+        model_name = "fasttext_%s" % tmp_name
+        model_type = model_name[:-8]
+        model = load_model(model_type, model_name)
+        save_vector(model_type, model_name, model=model)
+        model_name = "doc2vec_%s" % tmp_name
+        model_type = model_name[:-8]
+        model = load_model(model_type, model_name)
+        save_vector(model_type, model_name, model=model)
+        model_name = "bow_%s" % tmp_name
+        model_type = model_name[:-8]
+        dic = load_model(model_type, model_name)
+        corpus = bow_read_docs("data/tmp_file")
+        save_vector(model_type, model_name, model=None, dic=dic, corpus=corpus)
+        model_name = "tfidf_%s" % tmp_name
+        model_type = model_name[:-8]
+        model = load_model(model_type, model_name)
+        dic = Dictionary.load("model/bow_%s" % model_name[-7:])
+        corpus = bow_read_docs("data/tmp_file")
+        save_vector(model_type, model_name, model=model, dic=dic, corpus=corpus)
 
 def load_model(model_type, model_name):
     """
@@ -94,6 +128,55 @@ def wordclowd():
     """
     文書・単語ベクトル間の類似度を可視化
     """
+
+def save_vector(model_type, model_name, model=None, dic=None, corpus=None):
+    """
+    単語, 文章ベクトルを保存
+
+    dic, corpusはbow or tfidf時に必要
+    """
+
+    print("save %s vector." % model_type)
+    file_names = os.listdir("data/tmp_file")
+    
+    if(model_type=="word2vec"):
+        df = pd.DataFrame(model.wv.vectors)
+        df.index = model.wv.vocab.keys()
+        save_df(df, model_name, mode="word")
+    elif(model_type=="doc2vec"):
+        df = pd.DataFrame(model.wv.vectors)
+        df.index = model.wv.vocab.keys()
+        save_df(df, model_name, mode="word")
+        df2 = pd.DataFrame(np.array([model.docvecs[i] for i, _ in enumerate(file_names)]))
+        df2.index = file_names
+        save_df(df, model_name, mode="doc")
+    elif(model_type=="fasttext"):
+        df = pd.DataFrame(model.wv.vectors)
+        df.index = model.wv.vocab.keys()
+        save_df(df, model_name, mode="word")
+    elif(model_type=="bow"):
+        bow_matrix = np.array([vec2dense(dic.doc2bow(corpus[i]),len(dic)) for i in range(len(corpus))])
+        df = pd.DataFrame(bow_matrix)
+        df.index = file_names
+        df.columns = dic.token2id.keys()
+        save_df(df, model_name, mode="doc")
+    elif(model_type=="tfidf"):
+        bow_corpus = [dic.doc2bow(d) for d in corpus]
+        model = model[bow_corpus]
+        df = pd.DataFrame(np.array([vec2dense(doc,len(dic)) for doc in model]))
+        df.index = file_names
+        df.columns = dic.token2id.keys()
+        save_df(df, model_name, mode="doc")
+
+def save_df(df, model_name, mode="word"):
+    """
+    pandasのDataFrame形式dfの保存
+
+    mode: word or doc
+        保存先(dfが文章ベクトルか単語ベクトルか)を決める
+    """
+
+    df.to_csv("data/csv/vector/%s/%s.csv" % (mode, model_name[:-6]))
 
 def main():
     argvs = sys.argv  # コマンドライン引数を格納したリストの取得

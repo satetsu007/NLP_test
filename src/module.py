@@ -3,29 +3,29 @@
 
 from gensim.models import word2vec, fasttext, doc2vec
 from gensim.matutils import corpus2dense
-from test import load_model, show_wv
+# from test import load_model, show_wv
 import gensim
 import smart_open
 import os
 import shutil
 
-def compare(model_no, word=None):
-    """
-    各種アルゴリズムでの学習結果を比較する.
-
-    word: 比較したい学習済みの単語
-    """
-
-    print("compare vector.")
-    model_types = ["word2vec", "doc2vec", "fasttext"]
-    model_names = ["%s_%s.model" % (model_types[0], model_no),
-                   "%s_%s.model" % (model_types[1], model_no),
-                   "%s_%s.model" % (model_types[2], model_no)]
-
-    for model_type, model_name in zip(model_types, model_names):
-        print(model_type)
-        model = load_model(model_type, model_name)
-        show_wv(model, word=word)
+# def compare(model_no, word=None):
+#     """
+#     各種アルゴリズムでの学習結果を比較する.
+# 
+#     word: 比較したい学習済みの単語
+#     """
+# 
+#     print("compare vector.")
+#     model_types = ["word2vec", "doc2vec", "fasttext"]
+#     model_names = ["%s_%s.model" % (model_types[0], model_no),
+#                    "%s_%s.model" % (model_types[1], model_no),
+#                    "%s_%s.model" % (model_types[2], model_no)]
+# 
+#     for model_type, model_name in zip(model_types, model_names):
+#         print(model_type)
+#         model = load_model(model_type, model_name)
+#         show_wv(model, word=word)
 
 def read_corpus(fname, tokens_only=False):
     """
@@ -75,6 +75,9 @@ def bow2vec(vec, num_terms):
     """
     gensimのbow形式からbowのベクトルを生成
     """
+    return list(corpus2dense([vec], num_terms=num_terms).T[0])
+
+def vec2dense(vec, num_terms):
     return list(corpus2dense([vec], num_terms=num_terms).T[0])
 
 def set_data(mode="word"):
