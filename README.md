@@ -45,6 +45,27 @@ fasttext == 0.8.3
 
 学習用データを保存
 
+- csv
+    - vector
+        - doc
+        - word
+- main
+    - XXX
+        - xxx.txt
+        - …
+    - …
+- target
+    - YYY
+        - yyy.txt
+        - …
+    - …
+- tmp_file
+    - m_XXX_xxx_wakati.txt
+    - …
+    - t_YYY_yyy_wakati.txt
+    - …
+- tmp.txt
+
 ***
 
 ### ipynb
@@ -55,23 +76,11 @@ jupyter notebookを保存
 
 ### src
 
-- bow.py
-- compare.py
 - module.py
-
-- nlp_with_doc2vec.py
-- nlp_with_fasttext.py
 - nlp_with_gensim.py
-- nlp_with_tag.py
-- nlp_with_tensorflow.py
-- nlp_with_word2vec.py
-
 - preset.py
 - test.py
-- tfidf.py
 - train.py
-- weight.py
-
 
 ***
 
@@ -170,12 +179,10 @@ http://tensorflow.classcat.com/2016/03/12/tensorflow-cc-word2vec/
 
 ## やること
 
-- bow, tfidf用のcalc_similarity(仮)の実装
+- calc_simiralityの実装
 - 前処理の実装(参照: https://qiita.com/Hironsan/items/2466fe0f344115aff177)
     - 正規表現確認サイト(https://regex101.com/)
     - 辞書データの拡充(金融用語)
-- 過去実装分との違い, 操作マニュアルの作成
-- 各種アルゴリズムのベクトル比較
-    - 文章ベクトルについては, 類似度計算結果をcsvファイルで出力
-    - 単語ベクトルの比較は検討中
+- ベクトル化アルゴリズムの追加
+    - LDA, LDI等
 - LSTMを使った文章生成プログラム
