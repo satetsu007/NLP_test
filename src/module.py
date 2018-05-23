@@ -102,12 +102,12 @@ def set_data(mode="word"):
     for i, main_folder in enumerate(main_folders):
         for main_file in main_files[i]:
             if main_file[-4:] == ".txt" and "wakati" in main_file:
-                shutil.copy("%s/%s/%s" % (m, main_folder, main_file), "tmp_file/m:%s_%s"  % (main_folder, main_file))
+                shutil.copy("%s/%s/%s" % (m, main_folder, main_file), "tmp_file/m_%s_%s"  % (main_folder, main_file))
 
     for i, target_folder in enumerate(target_folders):
         for target_file in target_files[i]:
             if target_file[-4:] == ".txt" and "wakati" in target_file:
-                shutil.copy("%s/%s/%s" % (t, target_folder, target_file), "tmp_file/t:%s_%s"  % (target_folder, target_file))
+                shutil.copy("%s/%s/%s" % (t, target_folder, target_file), "tmp_file/t_%s_%s"  % (target_folder, target_file))
     
     if mode=="word":
         tmp_file_list = os.listdir("tmp_file")
